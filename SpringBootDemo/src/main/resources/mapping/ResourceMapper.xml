@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="com.zzj.springboot.mapper.ResourceMapper">
+
+
+    <select id="listByUserId" resultType="SysResources">
+        SELECT * FROM sys_resources s LEFT JOIN
+        (SELECT role_id,resources_id FROM sys_role_resources WHERE role_id IN (SELECT role_id FROM sys_user_role WHERE user_id=#{id})) a
+        ON a.resources_id=s.`id` WHERE s.`permission` IS NOT NULL AND s.`permission`!=''
+    </select>
+
+    <select id="listAll" resultType="SysResources">
+        select * from sys_resources
+    </select>
+
+    <select id="findResourcesByType" resultType="SysResources">
+        select * from sys_resources where type=#{type}
+    </select>
+
+    <select id="getAllByParentId" resultType="SysResources">
+        select * from sys_resources WHERE parent_id=#{parentId}
+    </select>
+</mapper>

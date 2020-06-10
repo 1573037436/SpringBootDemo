@@ -1,0 +1,21 @@
+server:
+  port: 8443
+
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/springbootdemo?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+
+#showSql
+logging:
+  level:
+    com:
+      zzj:
+        springboot :
+            mapper: debug
+mybatis-plus:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  #给类取别名(即去掉包后的类名)，然后具体的XXXmapper.xml中type和resultType都可以直接用类名
+  type-aliases-package: com.zzj.springboot.model

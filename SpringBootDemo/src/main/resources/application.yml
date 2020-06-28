@@ -2,11 +2,23 @@ server:
   port: 8443
 
 spring:
+  profiles:
+    active: dev    # dev,prod,test
   datasource:
     username: root
     password: root
     url: jdbc:mysql://localhost:3306/springbootdemo?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
     driver-class-name: com.mysql.jdbc.Driver
+    # activiti default configuration
+  activiti:
+    database-schema-update: true
+    check-process-definitions: false
+    process-definition-location-prefix: classpath:/processes/
+      #    process-definition-location-suffixes:
+      #      - **.bpmn
+      #      - **.bpmn20.xml
+      # 保存历史数据级别设置为full最高级别，便于历史数据的追溯
+    history-level: full
 
 #showSql
 logging:
@@ -15,6 +27,7 @@ logging:
       zzj:
         springboot :
             mapper: debug
+  config: classpath:logback-spring.xml
 mybatis-plus:
   mapper-locations: classpath:mapping/*Mapper.xml
   #给类取别名(即去掉包后的类名)，然后具体的XXXmapper.xml中type和resultType都可以直接用类名

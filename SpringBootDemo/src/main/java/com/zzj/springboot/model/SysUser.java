@@ -45,4 +45,6 @@ public class SysUser extends AbstractDO {
     private Integer loginCount;
     private String remark;
     private Integer status;
+    private String address;
+    private String telephone;
 }

@@ -17,4 +17,12 @@ public class RoleService {
     public List<SysRole> listRolesByUserId(long id){
         return roleMapper.listRolesByUserId(id);
     }
+
+    public Integer add(SysRole role){
+        return roleMapper.insert(role);
+    }
+
+    public Integer deleteRoleById(long id){
+        return roleMapper.deleteById(id);
+    }
 }

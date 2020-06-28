@@ -2,11 +2,10 @@ package com.zzj.springboot.config;
 
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.web.filter.authz.PermissionsAuthorizationFilter;
-import org.apache.shiro.web.filter.authz.RolesAuthorizationFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -62,7 +61,8 @@ public class ShiroConfig {
         filterChainMap.put("/api/admin*", "anon");
         // “/api/user” 开头的用户需要角色认证，是“role:admin”才允许
         //RolesAuthorizationFilter 多个角色可以写成"roles[\"admin,user\"]"
-        filterChainMap.put("/api/user*/**", "roles[root:admin]");
+        //filterChainMap.put("/api/user*/**", "roles[root:admin]");
+        filterChainMap.put("/api/user*/**", "anon");
         // “/api/library” 开头的用户需要权限认证，是“user:add”才允许
         //PermissionsAuthorizationFilter 多个权限可以写成"perms[\"user:add,user:delete\"]"
         filterChainMap.put("/api/library*/**", "perms[user:add]");

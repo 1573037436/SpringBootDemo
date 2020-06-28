@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper  namespace="com.zzj.springboot.mapper.UserMapper">
 
+    <sql id="BaseColumnList">
+        id,username,nickname,mobile,email,qq,
+        birthday,gender,avatar,user_type,reg_ip,last_login_ip,
+        last_login_time,login_count,remark,status,create_time,update_time,
+        address,telephone
+    </sql>
+    <select id="selectAll" resultType="SysUser">
+        select
+        <include refid="BaseColumnList"/>
+        from sys_user
+    </select>
     <select id="findByName" parameterType="String" resultType="SysUser">
         select * from sys_user where username = #{username}
     </select>
@@ -12,6 +23,26 @@
     </select>
 
     <insert id="insert" >
-        insert into sys_user (username,password) value (#{username},#{password})
+        insert into sys_user (username,password,nickname,mobile,email,qq,
+                 birthday,gender,avatar,user_type,reg_ip,last_login_ip,
+                 last_login_time,login_count,remark,status,create_time,update_time,
+                  address,telephone )
+        value (#{username},#{password},#{nickname},#{mobile},#{email},#{qq},
+              #{birthday},#{gender},#{avatar},#{userType},#{regIp},#{lastLoginIp},
+              #{lastLoginTime},#{loginCount},#{remark},#{status},#{createTime},#{updateTime},
+              #{address},#{telephone}
+        )
     </insert>
+   <!--传入map，适合列为int或bigint-->
+    <delete id="deleteBatchMapIds" parameterType="java.util.Map">
+        delete from sys_user where id in (${ids})
+    </delete>
+    <!-- 传入List-->
+    <delete id="deleteBatchListIds" parameterType="java.util.List">
+        delete from sys_user where id in
+        <!-- ids为mapper中绑定的参数-->
+        <foreach collection="ids"  item="item" open="(" separator="," close=")"  >
+            #{item}
+        </foreach>
+    </delete>
 </mapper>

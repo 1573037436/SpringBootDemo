@@ -8,6 +8,10 @@ import AppIndex from '@/components/AppIndex'
 import Home from '@/components/Home'
 import LibraryIndex from '../components/library/LibraryIndex'
 import AdminMenu from '@/components/admin/AdminMenu'
+import model from '@/components/activiti/model'
+import process from '@/components/activiti/process'
+import task from '@/components/activiti/task'
+import detail from '@/components/activiti/detail'
 
 Vue.use(Router)
 
@@ -30,7 +34,7 @@ export default new Router({
         {
           path: '/index',
           name: 'AppIndex',
-          component: AppIndex,
+          component: AppIndex
           //meta: {
            // requireAuth: true
           //}
@@ -38,10 +42,29 @@ export default new Router({
         {
           path: '/library',
           name: 'Library',
-          component: LibraryIndex,
+          component: LibraryIndex
           //meta: {
             //requireAuth: true
           //}
+        },
+        { 
+          path: '/model', 
+          name: 'model',
+          component: model
+        },
+        { 
+          path: '/process', 
+          component: process, 
+          name: 'process'
+        },
+        { path: '/detail/:id', // 带参数路由    /detail/1
+          component: detail, 
+          name: 'detail'
+        },
+        { 
+          path: '/task', 
+          component: task, 
+          name: 'task'
         }
       ]
     },

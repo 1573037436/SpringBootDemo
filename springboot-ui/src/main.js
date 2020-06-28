@@ -52,7 +52,7 @@ const initAdminMenu = (router, store) => {
   if (store.state.adminMenus.length > 0) {
     return
   }
-  //获取菜单信息
+  //动态获取菜单信息
   axios.get('/menu').then(resp => {
     if (resp && resp.status === 200) {
       var fmtRoutes = formatRoutes(resp.data)
@@ -71,13 +71,15 @@ const formatRoutes = (routes) => {
       route.nodes = formatRoutes(route.nodes)
     }
 
+    // 构造需要的字段
     let fmtRoute = {
       path: route.url,
       component: resolve => {
         require(['./components/admin/' + route.component + '.vue'], resolve)
       },
       name: route.name,
-      nodes: route.nodes
+      nodes: route.nodes,
+      icon: route.icon
     }
     fmtRoutes.push(fmtRoute)
   })
